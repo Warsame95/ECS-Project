@@ -1,0 +1,12 @@
+services:
+  app:
+    build: 
+      context: ..
+      dockerfile: scripts/Dockerfile
+    ports:
+      - "8081:8081"
+    volumes:
+      - memos-data:/var/opt/memos
+  
+volumes:
+  memos-data:
