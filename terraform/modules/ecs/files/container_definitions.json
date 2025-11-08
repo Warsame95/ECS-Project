@@ -1,0 +1,45 @@
+[
+    {
+      "cpu": 0,
+      "environment": [
+        {
+          "name": "MEMOS_DRIVER",
+          "value": "mysql"
+        },
+        {
+          "name": "MEMOS_DSN",
+          "value": "admin:wcaGIuR3PAs449HloUfk@tcp(memos-db.cli2kqgoyn3r.eu-west-2.rds.amazonaws.com:3306)/memos"
+        }
+      ],
+      "environmentFiles": [],
+      "essential": true,
+      "image": "932175181322.dkr.ecr.eu-west-2.amazonaws.com/memo-ecs@sha256:7f2bd75987bccb0b4b6763e6306cf2f85bd5d22673cd06450f39f3d90b11297e",
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/memos-task",
+          "awslogs-create-group": "true",
+          "awslogs-region": "eu-west-2",
+          "awslogs-stream-prefix": "ecs"
+        },
+        "secretOptions": []
+      },
+      "mountPoints": [],
+      "name": "memos",
+      "portMappings": [
+        {
+          "appProtocol": "http",
+          "containerPort": 8081,
+          "hostPort": 8081,
+          "name": "memos-80-tcp",
+          "protocol": "tcp"
+        }
+      ],
+      "systemControls": [],
+      "ulimits": [],
+      "volumesFrom": []
+    }
+
+    
+  ]
+  
