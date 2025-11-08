@@ -7,3 +7,8 @@ module "vpc" {
   az = var.az
   igw-id = var.igw-id
 }
+
+module "ecs" {
+    source = "./modules/ecs"
+     vpc_id = var.vpc_id
+}
