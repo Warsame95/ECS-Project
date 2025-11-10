@@ -12,3 +12,8 @@ module "ecs" {
     source = "./modules/ecs"
      vpc_id = var.vpc_id
 }
+
+module "alb" {
+  source = "./modules/alb"
+  vpc_id = var.vpc_id
+}
