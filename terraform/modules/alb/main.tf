@@ -1,6 +1,30 @@
-// ALB resource block to be added
+// ALB
 
-// Then add target group association resource
+resource "aws_lb" "test" {
+  name               = "memos-alb"
+  internal           = false
+  load_balancer_type = "application"
+  security_groups    = [aws_security_group.alb-sg.id]
+  subnets            = [var.public_subnet_id]
+  
+
+}
+//alb listener
+
+resource "aws_lb_listener" "https" {
+  load_balancer_arn = aws_lb.test.arn
+  certificate_arn = var.acm_certificate_arn
+  protocol = "HTTPS"
+  port = 443
+  ssl_policy = "ELBSecurityPolicy-TLS13-1-2-Res-2021-06"
+
+  default_action {
+    type = "forward"
+    target_group_arn = aws_lb_target_group.memos-service-tg.arn
+  }
+}
+
+// target group
 
 resource "aws_lb_target_group" "memos-service-tg" {
   name     = "memos-service-tg"
@@ -45,8 +69,7 @@ resource "aws_lb_target_group" "memos-service-tg" {
 
 }
 
-
-
+// alb-sg
 
 resource "aws_security_group" "alb-sg" {
   name        = "alb-sg"
