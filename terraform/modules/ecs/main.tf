@@ -1,5 +1,5 @@
 resource "aws_ecs_cluster" "memos-cluster" {
-    name = "memos-cluster"
+    name = "${var.name}-cluster"
 
     configuration {
           execute_command_configuration {
@@ -7,6 +7,88 @@ resource "aws_ecs_cluster" "memos-cluster" {
         }
     }
 }
+
+// task definition resource to be added
+
+resource "aws_ecs_task_definition" "task" {
+  family = "${var.name}-task"
+  requires_compatibilities = ["FARGATE"]
+  cpu = 256
+  memory = 512
+  network_mode = "awsvpc"
+  execution_role_arn = "arn:aws:iam::932175181322:role/ecsTaskExecutionRole"
+
+  container_definitions = jsonencode([
+    {
+      name = var.name
+      image = var.container_image
+      cpu = 0
+      essential = true
+
+      portMappings = [
+        {
+          containerPort = 8081
+          hostport = 8081
+          name = "${var.name}-80-tcp"
+          protocol = "tcp"
+
+        }
+      ]
+
+      logConfiguration = {
+        logDriver = "awslogs"
+        options = {
+          awslogs-region        = var.region
+          awslogs-group         = "/ecs/memos-task"
+          awslogs-stream-prefix = "ecs"
+        }
+      }
+      // revisit this and look into secrets manager
+      secrets = [
+        {
+          name = "MEMOS_DRIVER"
+          valueFrom = "mysql"
+        },
+        {
+          name = "MEMOS_DSN"
+          valueFrom = var.MEMOS_DSN
+        }
+      ]
+
+    }
+  ])
+
+  runtime_platform {
+    operating_system_family = "LINUX"
+    cpu_architecture = "ARM64"
+  }
+
+
+}
+
+// service resource to be added 
+
+resource "aws_ecs_service" "name" {
+  name = var.name
+  cluster = aws_ecs_cluster.memos-cluster.arn
+  task_definition = aws_ecs_task_definition.task.arn
+  launch_type = "FARGATE"
+
+  desired_count = 2
+
+  network_configuration {
+    subnets = var.private_subnet_ids
+    security_groups = [aws_security_group.ecs-sg.id]
+  }
+
+  load_balancer {
+    container_name = var.name
+    container_port = 8081
+    target_group_arn = var.target_group_arn
+  }
+}
+
+
 
 resource "aws_security_group" "ecs-sg" {
   name        = "ecs-sg"
@@ -16,9 +98,8 @@ resource "aws_security_group" "ecs-sg" {
   ingress {
     from_port = 8081
     protocol = "tcp"
-    to_port = 8081
-
-    security_groups = [ "sg-0184077de618dca88" ]
+    to_port = 8081 
+    security_groups = [ var.alb_sg_id ]
   }
 
   egress {
@@ -37,7 +118,3 @@ resource "aws_security_group" "ecs-sg" {
   }
  
 }
-
-// task definition resource to be added
-
-// service resource to be added 
