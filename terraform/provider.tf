@@ -9,6 +9,8 @@ terraform {
     bucket = "warsame-memos-bucket"
     key = "terraform.tfstate"
     region = "eu-west-2"
+    dynamodb_table = "memos-locks"
+    encrypt = true
   }
 }
 
