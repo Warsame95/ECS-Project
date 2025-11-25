@@ -52,9 +52,26 @@ variable "db_subnet_group" {
 
 variable "MEMOS_DSN" {
   type = string
-  default = "admin:wcaGIuR3PAs449HloUfk@tcp(memos-db.cli2kqgoyn3r.eu-west-2.rds.amazonaws.com:3306)/memos"
 }
 
 variable "container_image" {
   type = string
+}
+
+variable "db_username" {
+  type = string
+  default = "admin"
+}
+
+variable "db_password" {
+  type = string
+}
+
+variable "db_host" { 
+  type = string 
+  
+}
+variable "db_name" { 
+  type = string 
+  
 }

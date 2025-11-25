@@ -18,13 +18,17 @@ module "ecs" {
      container_image = var.container_image
      private_subnet_ids = module.vpc.private_subnet_ids
      target_group_arn = module.alb.target_group_arn
+     db_username = var.db_username
+     db_password = var.db_password
+     db_host = var.db_host
+     db_name = var.db_name
 }
 
 module "alb" {
   source = "./modules/alb"
   vpc_id = var.vpc_id
   ecs_sg_id = module.ecs.ecs_sg_id
-  public_subnet_id = module.vpc.public_subnet_ids[0]
+  public_subnet_ids = module.vpc.public_subnet_ids
   acm_certificate_arn = module.dns.acm_certificate_arn
 }
 

@@ -12,6 +12,7 @@ variable "name" {
 
 variable "MEMOS_DSN" {
   type = string
+  default = "needs to be removed"
 }
 
 variable "region" {
@@ -28,4 +29,22 @@ variable "private_subnet_ids" {
 
 variable "target_group_arn" {
   type = string
+}
+
+variable "db_username" {
+  type = string
+  default = "admin"
+}
+
+variable "db_password" {
+  type = string
+}
+
+variable "db_host" { 
+  type = string 
+  
+}
+variable "db_name" { 
+  type = string 
+  
 }

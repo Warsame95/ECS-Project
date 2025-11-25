@@ -28,7 +28,7 @@ resource "aws_ecs_task_definition" "task" {
       portMappings = [
         {
           containerPort = 8081
-          hostport = 8081
+          hostPort = 8081
           name = "${var.name}-80-tcp"
           protocol = "tcp"
 
@@ -43,7 +43,7 @@ resource "aws_ecs_task_definition" "task" {
           awslogs-stream-prefix = "ecs"
         }
       }
-      // revisit this and look into secrets manager
+      // **MUST** revisit this and use secrets manager
       secrets = [
         {
           name = "MEMOS_DRIVER"
@@ -51,7 +51,7 @@ resource "aws_ecs_task_definition" "task" {
         },
         {
           name = "MEMOS_DSN"
-          valueFrom = var.MEMOS_DSN
+          valueFrom = aws_secretsmanager_secret.my_secret.arn
         }
       ]
 
@@ -79,6 +79,7 @@ resource "aws_ecs_service" "name" {
   network_configuration {
     subnets = var.private_subnet_ids
     security_groups = [aws_security_group.ecs-sg.id]
+    assign_public_ip = false
   }
 
   load_balancer {
@@ -86,6 +87,17 @@ resource "aws_ecs_service" "name" {
     container_port = 8081
     target_group_arn = var.target_group_arn
   }
+}
+
+resource "aws_secretsmanager_secret" "my_secret" {
+  name = "db-credentials"
+}
+
+resource "aws_secretsmanager_secret_version" "my_secret_version" {
+  secret_id = aws_secretsmanager_secret.my_secret.id
+  secret_string = jsonencode({
+    dsn = "${var.db_username}:${var.db_password}@tcp(${var.db_host}:3306)/${var.db_name}"
+  })
 }
 
 
