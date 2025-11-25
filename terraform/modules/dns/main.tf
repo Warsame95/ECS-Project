@@ -1,16 +1,18 @@
-resource "aws_acm_certificate" "cert" {
-  domain_name       = "warsamememos.click"
+data "aws_acm_certificate" "cert" {
+  domain       = "warsamememos.click"
+  most_recent = true
+  statuses = [ "ISSUED" ]
 
 }
 
-resource "aws_route53_zone" "main_zone" {
+data "aws_route53_zone" "main_zone" {
   name = "warsamememos.click"
-  comment = "HostedZone created by Route53 Registrar"
+  private_zone = false
 }
 
 resource "aws_route53_record" "this" {
-  zone_id = aws_route53_zone.main_zone.id
-  name    = aws_acm_certificate.cert.domain_name
+  zone_id = data.aws_route53_zone.main_zone.zone_id
+  name    = data.aws_acm_certificate.cert.domain
   type    = "A"
 
   alias {
