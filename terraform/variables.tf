@@ -52,6 +52,7 @@ variable "db_subnet_group" {
 
 variable "MEMOS_DSN" {
   type = string
+  default = "will change later"
 }
 
 variable "container_image" {
@@ -74,4 +75,8 @@ variable "db_host" {
 variable "db_name" { 
   type = string 
   
+}
+
+variable "repo_name" {
+  type = string
 }
