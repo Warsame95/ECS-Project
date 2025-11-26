@@ -80,3 +80,11 @@ variable "db_name" {
 variable "repo_name" {
   type = string
 }
+
+variable "execution_role_name" {
+  type = string
+}
+
+variable "policy_arn" {
+  type = string
+}

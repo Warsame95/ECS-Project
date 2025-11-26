@@ -22,6 +22,7 @@ module "ecs" {
      db_password = var.db_password
      db_host = var.db_host
      db_name = var.db_name
+     execution_role_arn = module.iam.execution_role_arn
 }
 
 module "alb" {
@@ -54,4 +55,10 @@ module "rds" {
 module "ecr" {
   source = "./modules/ecr"
   repo_name = var.repo_name
+}
+
+module "iam" {
+  source = "./modules/iam"
+  execution_role_name = var.execution_role_name
+  policy_arn = var.policy_arn
 }
