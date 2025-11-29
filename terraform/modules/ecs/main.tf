@@ -43,12 +43,15 @@ resource "aws_ecs_task_definition" "task" {
           awslogs-stream-prefix = "ecs"
         }
       }
+
+      environment = [
+        {
+          name  = "MEMOS_DRIVER"
+          value = "mysql"
+        }
+      ]
       // **MUST** revisit this and use secrets manager
       secrets = [
-        {
-          name = "MEMOS_DRIVER"
-          valueFrom = "mysql"
-        },
         {
           name = "MEMOS_DSN"
           valueFrom = aws_secretsmanager_secret.my_secret.arn
@@ -61,6 +64,9 @@ resource "aws_ecs_task_definition" "task" {
   runtime_platform {
     operating_system_family = "LINUX"
     cpu_architecture = "ARM64"
+  }
+  lifecycle {
+    create_before_destroy = true
   }
 
 
@@ -95,11 +101,12 @@ resource "aws_secretsmanager_secret" "my_secret" {
 
 resource "aws_secretsmanager_secret_version" "my_secret_version" {
   secret_id = aws_secretsmanager_secret.my_secret.id
-  secret_string = jsonencode({
-    dsn = "${var.db_username}:${var.db_password}@tcp(${var.db_host}:3306)/${var.db_name}"
-  })
+  secret_string = "${var.db_username}:${var.db_password}@tcp(${var.db_host}:3306)/${var.db_name}"
 }
 
+data "aws_kms_key" "secretsmanager_kms" {
+  key_id = "arn:aws:kms:eu-west-2:932175181322:key/c444c980-c18c-4c71-bc1a-ae2ee73a5490"
+}
 
 
 resource "aws_security_group" "ecs-sg" {
