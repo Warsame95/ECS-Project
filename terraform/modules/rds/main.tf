@@ -10,6 +10,7 @@ resource "aws_db_instance" "db" {
   snapshot_identifier  = var.db_snapshot_id
   db_subnet_group_name = aws_db_subnet_group.private_subnet_group.name
   vpc_security_group_ids = [ aws_security_group.rds-sg.id ]
+  storage_encrypted = true
 }
 
 resource "aws_db_subnet_group" "private_subnet_group" {
