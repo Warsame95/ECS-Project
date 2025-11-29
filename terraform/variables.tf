@@ -85,6 +85,6 @@ variable "execution_role_name" {
   type = string
 }
 
-variable "policy_arn" {
+variable "execution_policy_arn" {
   type = string
 }

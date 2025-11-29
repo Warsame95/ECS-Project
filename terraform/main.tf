@@ -60,5 +60,7 @@ module "ecr" {
 module "iam" {
   source = "./modules/iam"
   execution_role_name = var.execution_role_name
-  policy_arn = var.policy_arn
+  execution_policy_arn = var.execution_policy_arn
+  my_secret_arn = module.ecs.my_secret_arn
+  kms_key_arn = module.ecs.kms_key_arn
 }
