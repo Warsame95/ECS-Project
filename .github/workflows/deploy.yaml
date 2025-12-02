@@ -15,7 +15,7 @@ jobs:
     env:
       AWS_REGION: eu-west-2
       ECR_REGISTRY: 932175181322.dkr.ecr.eu-west-2.amazonaws.com
-      ECR_REPOSITORY: ECS-Project
+      ECR_REPOSITORY: memo-ecs
       IMAGE_TAG: ${{ github.sha }}
 
     steps:
