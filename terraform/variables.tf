@@ -5,8 +5,8 @@ variable "name" {
 }
 
 variable "vpc_cidr" {
-    type = string
-  
+  type = string
+
 }
 
 variable "vpc_name" {
@@ -22,8 +22,8 @@ variable "region" {
 }
 
 variable "az" {
-    type = list(string)
-    default = ["eu-west-2a", "eu-west-2b"]
+  type    = list(string)
+  default = ["eu-west-2a", "eu-west-2b"]
 }
 
 variable "igw-id" {
@@ -51,7 +51,7 @@ variable "db_subnet_group" {
 }
 
 variable "MEMOS_DSN" {
-  type = string
+  type    = string
   default = "will change later"
 }
 
@@ -60,7 +60,7 @@ variable "container_image" {
 }
 
 variable "db_username" {
-  type = string
+  type    = string
   default = "admin"
 }
 
@@ -68,13 +68,13 @@ variable "db_password" {
   type = string
 }
 
-variable "db_host" { 
-  type = string 
-  
+variable "db_host" {
+  type = string
+
 }
-variable "db_name" { 
-  type = string 
-  
+variable "db_name" {
+  type = string
+
 }
 
 variable "repo_name" {
