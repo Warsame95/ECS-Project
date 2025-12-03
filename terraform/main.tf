@@ -10,19 +10,19 @@ module "vpc" {
 
 module "ecs" {
     source = "./modules/ecs"
-     vpc_id = var.vpc_id
-     alb_sg_id = module.alb.alb_sg_id
-     MEMOS_DSN = var.MEMOS_DSN
-     region = var.region
-     name = var.name
-     container_image = var.container_image
-     private_subnet_ids = module.vpc.private_subnet_ids
-     target_group_arn = module.alb.target_group_arn
-     db_username = var.db_username
-     db_password = var.db_password
-     db_host = var.db_host
-     db_name = var.db_name
-     execution_role_arn = module.iam.execution_role_arn
+    vpc_id = var.vpc_id
+    alb_sg_id = module.alb.alb_sg_id
+    MEMOS_DSN = var.MEMOS_DSN
+    region = var.region
+    name = var.name
+    container_image = var.container_image
+    private_subnet_ids = module.vpc.private_subnet_ids
+    target_group_arn = module.alb.target_group_arn
+    db_username = var.db_username
+    db_password = var.db_password
+    db_host = var.db_host
+    db_name = var.db_name
+    execution_role_arn = module.iam.execution_role_arn
 }
 
 module "alb" {
