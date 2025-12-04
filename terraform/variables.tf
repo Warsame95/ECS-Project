@@ -55,9 +55,9 @@ variable "MEMOS_DSN" {
   default = "will change later"
 }
 
-variable "container_image" {
-  type = string
-}
+# variable "container_image" {
+#   type = string
+# }
 
 variable "db_username" {
   type    = string

@@ -11,3 +11,7 @@ resource aws_ecr_repository "memos_repo" {
   }
 
 }
+
+data "aws_ssm_parameter" "container_image" {
+  name = "/ecs-project/container-image"
+}
