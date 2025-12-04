@@ -13,6 +13,8 @@ jobs:
     env:
       AWS_REGION: eu-west-2
       TF_WORKING_DIR: terraform
+      TF_LOG: INFO
+      TF_LOG_PATH: terraform.log
 
     steps:
       - name: Checkout source
