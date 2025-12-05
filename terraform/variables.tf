@@ -35,7 +35,8 @@ variable "my_ip" {
 }
 
 variable "db_identifier" {
-  type = string
+  type    = string
+  default = "memos-db"
 }
 
 variable "db_snapshot_id" {
@@ -43,7 +44,8 @@ variable "db_snapshot_id" {
 }
 
 variable "db_instance_class" {
-  type = string
+  type    = string
+  default = "db.t3.micro"
 }
 
 variable "db_subnet_group" {
