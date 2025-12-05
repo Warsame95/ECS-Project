@@ -27,6 +27,7 @@ jobs:
           aws-region: ${{ env.AWS_REGION }}
 
       - name: recreate terraform.tfvars from secret
+        working-directory: ${{ env.TF_WORKING_DIR }}
         run: |
           printf "%s" "${{ secrets.TF_VARS }}" > terraform.auto.tfvars
 
