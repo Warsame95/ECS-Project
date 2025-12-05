@@ -7,7 +7,7 @@ data "aws_db_snapshot" "memos_db_snapshot" {
 resource "aws_db_instance" "db" {
   identifier           = var.db_identifier
   instance_class       = var.db_instance_class
-  snapshot_identifier  = var.db_snapshot_id
+  snapshot_identifier  = data.aws_db_snapshot.memos_db_snapshot.id
   db_subnet_group_name = aws_db_subnet_group.private_subnet_group.name
   vpc_security_group_ids = [ aws_security_group.rds-sg.id ]
   storage_encrypted = true
