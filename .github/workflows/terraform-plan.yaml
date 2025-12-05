@@ -26,6 +26,12 @@ jobs:
           role-to-assume: arn:aws:iam::932175181322:role/github-oidc-role
           aws-region: ${{ env.AWS_REGION }}
 
+      - name: recreate terraform.tfvars from secret
+        run: |
+          cat <<'EOF' > terraform.tfvars
+          ${{ secrets.TF_VARS }}
+          EOF
+
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
 
