@@ -69,26 +69,26 @@ variable "db_password" {
 }
 
 variable "db_host" {
-  type = string
+  type    = string
   default = "memos-db.cli2kqgoyn3r.eu-west-2.rds.amazonaws.com"
 
 }
 variable "db_name" {
-  type = string
+  type    = string
   default = "memos"
 }
 
 variable "repo_name" {
-  type = string
+  type    = string
   default = "memo-ecs"
 }
 
 variable "execution_role_name" {
-  type = string
+  type    = string
   default = "ecsTaskExecutionRole"
 }
 
 variable "execution_policy_arn" {
-  type = string
+  type    = string
   default = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
 }
