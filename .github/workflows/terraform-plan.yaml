@@ -28,9 +28,7 @@ jobs:
 
       - name: recreate terraform.tfvars from secret
         run: |
-          cat <<'EOF' > terraform.tfvars
-          ${{ secrets.TF_VARS }}
-          EOF
+          printf "%s" "${{ secrets.TF_VARS }}" > terraform.auto.tfvars
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
