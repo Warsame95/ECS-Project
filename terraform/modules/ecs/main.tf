@@ -21,7 +21,7 @@ resource "aws_ecs_task_definition" "task" {
   container_definitions = jsonencode([
     {
       name = var.name
-      image = var.container_image
+      image = data.aws_ssm_parameter.container_image.value
       cpu = 0
       essential = true
 
@@ -106,6 +106,10 @@ resource "aws_secretsmanager_secret_version" "my_secret_version" {
 
 data "aws_kms_key" "secretsmanager_kms" {
   key_id = "arn:aws:kms:eu-west-2:932175181322:key/c444c980-c18c-4c71-bc1a-ae2ee73a5490"
+}
+
+data "aws_ssm_parameter" "container_image" {
+  name = "/ecs-project/container-image"
 }
 
 
