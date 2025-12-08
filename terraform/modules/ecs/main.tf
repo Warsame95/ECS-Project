@@ -53,7 +53,7 @@ resource "aws_ecs_task_definition" "task" {
       secrets = [
         {
           name = "MEMOS_DSN"
-          valueFrom = aws_secretsmanager_secret_version.my_secret_version.id
+          valueFrom = aws_secretsmanager_secret.my_secret.arn
         }
       ]
 
