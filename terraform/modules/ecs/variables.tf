@@ -19,10 +19,6 @@ variable "region" {
   type = string
 }
 
-variable "container_image" {
-  type = string
-}
-
 variable "private_subnet_ids" {
   type = list(string)
 }

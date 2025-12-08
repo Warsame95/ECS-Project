@@ -15,7 +15,6 @@ module "ecs" {
   MEMOS_DSN          = var.MEMOS_DSN
   region             = var.region
   name               = var.name
-  container_image    = module.ecr.container_image
   private_subnet_ids = module.vpc.private_subnet_ids
   target_group_arn   = module.alb.target_group_arn
   db_username        = var.db_username
