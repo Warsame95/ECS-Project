@@ -95,6 +95,7 @@ resource "aws_ecs_service" "name" {
 
 resource "aws_secretsmanager_secret" "my_secret" {
   name = "db-credentials"
+  recovery_window_in_days = 0
 }
 
 resource "aws_secretsmanager_secret_version" "my_secret_version" {
