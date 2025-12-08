@@ -52,11 +52,6 @@ module "rds" {
   public_subnet_ids  = module.vpc.public_subnet_ids
 }
 
-module "ecr" {
-  source    = "./modules/ecr"
-  repo_name = var.repo_name
-}
-
 module "iam" {
   source               = "./modules/iam"
   execution_role_name  = var.execution_role_name
