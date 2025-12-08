@@ -1,4 +1,3 @@
-// vpc variables
 
 variable "name" {
   type = string
