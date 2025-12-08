@@ -17,6 +17,10 @@ resource "aws_ecs_task_definition" "task" {
   network_mode = "awsvpc"
   execution_role_arn = var.execution_role_arn
 
+  depends_on = [
+    aws_secretsmanager_secret_version.my_secret_version
+  ]
+
   container_definitions = jsonencode([
     {
       name = var.name
@@ -94,7 +98,7 @@ resource "aws_ecs_service" "name" {
 }
 
 resource "aws_secretsmanager_secret" "my_secret" {
-  name = "db-credentials"
+  
   recovery_window_in_days = 0
 }
 
