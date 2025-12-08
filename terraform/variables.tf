@@ -52,15 +52,6 @@ variable "db_subnet_group" {
   type = string
 }
 
-variable "MEMOS_DSN" {
-  type    = string
-  default = "will change later"
-}
-
-# variable "container_image" {
-#   type = string
-# }
-
 variable "db_username" {
   type    = string
   default = "admin"

@@ -8,7 +8,6 @@ resource "aws_ecs_cluster" "memos-cluster" {
     }
 }
 
-// task definition resource to be added
 
 resource "aws_ecs_task_definition" "task" {
   family = "${var.name}-task"
@@ -50,7 +49,7 @@ resource "aws_ecs_task_definition" "task" {
           value = "mysql"
         }
       ]
-      // **MUST** revisit this and use secrets manager
+      
       secrets = [
         {
           name = "MEMOS_DSN"
@@ -71,8 +70,7 @@ resource "aws_ecs_task_definition" "task" {
 
 
 }
-
-// service resource to be added 
+ 
 
 resource "aws_ecs_service" "name" {
   name = var.name

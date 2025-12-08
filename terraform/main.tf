@@ -12,7 +12,6 @@ module "ecs" {
   source             = "./modules/ecs"
   vpc_id             = var.vpc_id
   alb_sg_id          = module.alb.alb_sg_id
-  MEMOS_DSN          = var.MEMOS_DSN
   region             = var.region
   name               = var.name
   private_subnet_ids = module.vpc.private_subnet_ids

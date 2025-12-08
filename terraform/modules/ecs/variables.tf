@@ -10,11 +10,6 @@ variable "name" {
   type = string
 }
 
-variable "MEMOS_DSN" {
-  type = string
-  default = "needs to be removed"
-}
-
 variable "region" {
   type = string
 }
