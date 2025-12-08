@@ -10,7 +10,7 @@ resource "aws_vpc" "main" {
 }
 
 resource "aws_internet_gateway" "igw" {
-    vpc_id = var.vpc_id
+    vpc_id = aws_vpc.main.id
 
     tags = {
     Name = "${var.vpc_name}-igw"
@@ -23,7 +23,7 @@ resource "aws_internet_gateway" "igw" {
 
 resource "aws_subnet" "public" {
     count = 2
-    vpc_id = var.vpc_id
+    vpc_id = aws_vpc.main.id
 
     cidr_block = cidrsubnet(var.vpc_cidr, 8, count.index+1)
 
@@ -34,7 +34,7 @@ resource "aws_subnet" "public" {
 
 resource "aws_subnet" "private" {
     count = 2
-    vpc_id = var.vpc_id
+    vpc_id = aws_vpc.main.id
 
     cidr_block = cidrsubnet(var.vpc_cidr, 8, count.index+101)
 
@@ -45,11 +45,11 @@ resource "aws_subnet" "private" {
  }
 
 resource "aws_route_table" "public-rtb" {
-    vpc_id = var.vpc_id
+    vpc_id = aws_vpc.main.id
 
     route {
         cidr_block = "0.0.0.0/0"
-        gateway_id = var.igw-id
+        gateway_id = aws_internet_gateway.igw.id
     }
 
     tags = {
@@ -58,7 +58,7 @@ resource "aws_route_table" "public-rtb" {
 }
 
 resource "aws_route_table" "private-rtb" {
-    vpc_id = var.vpc_id
+    vpc_id = aws_vpc.main.id
 
 
     tags = {

@@ -6,16 +6,7 @@ variable "vpc_name" {
   type = string
 }
 
-variable "vpc_id" {
-  type = string
-}
-
 variable "az" {
     type = list(string)
     default = ["eu-west-2a", "eu-west-2b"]
 }
-
-variable "igw-id" {
-  type = string
-}
-
