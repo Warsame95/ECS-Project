@@ -1,16 +1,13 @@
 module "vpc" {
-  source = "./modules/vpc"
-
+  source   = "./modules/vpc"
   vpc_cidr = var.vpc_cidr
   vpc_name = var.vpc_name
-  vpc_id   = var.vpc_id
   az       = var.az
-  igw-id   = var.igw-id
 }
 
 module "ecs" {
   source             = "./modules/ecs"
-  vpc_id             = var.vpc_id
+  vpc_id             = module.vpc.vpc_id
   alb_sg_id          = module.alb.alb_sg_id
   region             = var.region
   name               = var.name
@@ -25,7 +22,7 @@ module "ecs" {
 
 module "alb" {
   source              = "./modules/alb"
-  vpc_id              = var.vpc_id
+  vpc_id              = module.vpc.vpc_id
   ecs_sg_id           = module.ecs.ecs_sg_id
   public_subnet_ids   = module.vpc.public_subnet_ids
   acm_certificate_arn = module.dns.acm_certificate_arn
@@ -39,7 +36,7 @@ module "dns" {
 
 module "rds" {
   source             = "./modules/rds"
-  vpc_id             = var.vpc_id
+  vpc_id             = module.vpc.vpc_id
   ecs_sg_id          = module.ecs.ecs_sg_id
   my_ip              = var.my_ip
   db_identifier      = var.db_identifier
