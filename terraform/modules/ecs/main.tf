@@ -121,6 +121,8 @@ resource "aws_security_group" "ecs-sg" {
   description = "Allows traffic coming from alb"
   vpc_id      = var.vpc_id
 
+  depends_on = [ module.alb ]
+
   ingress {
     from_port = 8081
     protocol = "tcp"
