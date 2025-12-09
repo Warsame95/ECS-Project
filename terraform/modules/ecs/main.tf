@@ -129,14 +129,6 @@ resource "aws_security_group" "ecs-sg" {
   }
 
   egress {
-    from_port = 2049
-    protocol = "tcp"
-    to_port = 2049
-
-    security_groups = [ "sg-0b466553c2b137c2e" ]
-  }
-
-  egress {
     from_port = 0
     protocol = "-1"
     to_port = 0
