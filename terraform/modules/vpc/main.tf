@@ -80,8 +80,6 @@ resource "aws_route_table_association" "private" {
   route_table_id = aws_route_table.private-rtb.id
 }
 
-// NAT gateway required also
-
 resource "aws_eip" "eip" {
   domain = "vpc"
 }
