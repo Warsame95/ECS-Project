@@ -4,13 +4,14 @@ This project delivers a fully automated, containerised deployment of the open-so
 
 ### Project Overview
 
-- The application is containerised with Docker and the images are pushed to Amazon ECR through automated build workflows.  
-- Terraform provisions all infrastructure, with remote state management ensuring consistent and reliable deployments.  
-- Amazon RDS is used to provide persistent and managed database storage for the application.  
-- Route 53 manages DNS records and directs traffic to the deployed service.  
-- CI/CD pipelines automate image builds, Terraform plan/apply, and the end-to-end deployment lifecycle.  
-- The stack is fully reproducible; both infrastructure and application changes flow through the same automated process.  
-- A dedicated destroy pipeline handles teardown, ensuring all AWS resources are removed cleanly and predictably.
+- ***Multi-stage Docker builds*** to produce small, secure runtime images with clean separation between build and execution stages.
+- ***Terraform*** for Infrastructure as Code, enabling repeatable and version-controlled cloud environments.
+- ***AWS ECS Fargate*** for serverless container orchestration, removing the need to manage EC2 instances.
+- ***Amazon RDS*** for managed, highly available relational database storage.
+- ***Remote Terraform state*** stored in ***Amazon S3***, with ***DynamoDB*** used for state locking and consistency.
+- ***HTTPS / TLS*** termination for secure communication.
+- ***AWS Secrets Manager*** for secure handling of credentials and sensitive configuration.
+- ***CI/CD pipeline*** to automate build, test, and deployment of container images.
 
 ## Architecture Diagram
 
@@ -47,3 +48,53 @@ This project delivers a fully automated, containerised deployment of the open-so
     └── .gitignore
 
 ```
+## Running the Application Locally
+
+### Requirements
+
+- Docker
+- Docker Compose (v2)
+
+### Start the Application
+
+From the app/scripts, run:
+
+```bash
+docker compose up 
+```
+The application will be available at:
+
+```
+http://localhost:8081
+```
+The application persists data using a Docker-managed volume, so data is retained across container restarts.
+
+### Stop the Application
+
+```bash
+docker compose down 
+```
+## CI/CD workflows
+- **Build and Push to ECR**
+<img width="2855" height="1269" alt="image" src="https://github.com/user-attachments/assets/95a6c453-7394-4602-842e-1ba4736cabeb" />
+
+- **Terraform Plan**
+<img width="2842" height="1428" alt="image" src="https://github.com/user-attachments/assets/c790e3d5-55ac-43a3-8698-e7c38d316884" />
+
+- **Terraform Apply**
+<img width="2848" height="1266" alt="image" src="https://github.com/user-attachments/assets/5fde9b72-a24e-45a9-bd5c-011b78ad3704" />
+
+- **Terraform Destroy**
+<img width="2842" height="1256" alt="image" src="https://github.com/user-attachments/assets/321a1db4-801f-4faa-999f-682ee417d971" />
+
+## Screenshots
+
+<img width="2877" height="1528" alt="image" src="https://github.com/user-attachments/assets/6a9fa162-6c40-4be3-bab6-09367aecd9eb" />
+
+<img width="2875" height="1534" alt="image" src="https://github.com/user-attachments/assets/ba214cce-722a-4c03-98e7-2e1f7958d72b" />
+
+
+
+
+
+
