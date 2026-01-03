@@ -15,7 +15,7 @@ This project delivers a fully automated, containerised deployment of the open-so
 
 ## Architecture Diagram
 
-<img width="2130" height="1423" alt="image" src="https://github.com/user-attachments/assets/3214b409-bf16-4ece-81a8-df88f3688749" />
+<img width="2130" height="1423" alt="Cloud Architecture" src="https://github.com/user-attachments/assets/fe76b8f3-6109-4661-beb5-a6affd41f557" />
 
 
 
