@@ -1,4 +1,4 @@
-# ECS-Project
+# Memos App on AWS ECS
 
 This project delivers a fully automated, containerised deployment of the open-source <a href="https://github.com/usememos/memos"><strong>Memos</strong></a> application. Infrastructure is provisioned with Terraform; the application is built and deployed through CI/CD pipelines that handle the full lifecycle from build to destroy. It demonstrates an end-to-end DevOps workflow using infrastructure-as-code and automated orchestration.
 
